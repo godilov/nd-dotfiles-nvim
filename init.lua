@@ -24,7 +24,10 @@ init = function(root, is_debug)
     local entry_file = format('%s/src/?.lua', entry_root)
     local entry_init = format('%s/src/?/init.lua', entry_root)
 
-    package.path = format('%s;%s;%s', package.path, entry_file, entry_init)
+    local entry_config_file = format('%s/?.lua', entry_root)
+    local entry_config_init = format('%s/?/init.lua', entry_root)
+
+    package.path = format('%s;%s;%s;%s;%s', package.path, entry_file, entry_init, entry_config_file, entry_config_init)
 
     ND_NVIM_IS_DEBUG = ND_NVIM_IS_DEBUG or is_debug
 

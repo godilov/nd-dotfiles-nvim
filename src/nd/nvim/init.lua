@@ -3,6 +3,7 @@ local packer         = require 'packer'
 local fn_lib         = require 'nd.lib.core.fn'
 local str_lib        = require 'nd.lib.core.str'
 local tab_lib        = require 'nd.lib.core.tab'
+local cache_lib      = require 'nd.lib.cache.fs'
 
 local plugin_fn      = require 'nd.resources.core.plugin'
 
@@ -19,6 +20,7 @@ local ivals          = fn_lib.ivals
 local map            = fn_lib.map
 local collect        = fn_lib.collect
 
+local concat2s       = str_lib.concat2s
 local concat3s       = str_lib.concat3s
 
 local concat         = tab_lib.concat
@@ -39,6 +41,8 @@ end
 
 return function()
     if not is_init then
+        cache_lib.set_dir(concat2s(vim.fn.stdpath 'cache', '/nd.nvim/'))
+
         local plugin_iter = ivals(plugin_fn())
 
         packer.startup {

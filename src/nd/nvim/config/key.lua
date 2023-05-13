@@ -2,6 +2,7 @@ local cmp       = require 'cmp'
 local snip      = require 'luasnip'
 local tree      = require 'nvim-tree'
 local telescope = require 'telescope'
+local actions   = require 'telescope.actions'
 
 return {
     ['main'] = {
@@ -20,6 +21,7 @@ return {
             snip      = snip,
             tree      = tree,
             telescope = telescope,
+            actions   = actions,
         },
     },
 }

@@ -64,6 +64,6 @@ nd_apply_file = function()
 end
 
 return function(key_config, color_config)
-    vim.api.nvim_create_user_command('NdApplyConfig', nd_apply_config(key_config, color_config))
-    vim.api.nvim_create_user_command('NdApplyFile', nd_apply_file())
+    vim.api.nvim_create_user_command('NdApplyConfig', nd_apply_config(key_config, color_config), {})
+    vim.api.nvim_create_user_command('NdApplyFile', nd_apply_file(), {})
 end

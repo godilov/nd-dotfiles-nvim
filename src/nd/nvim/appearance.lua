@@ -1,6 +1,8 @@
-local scheme_fn  = require 'nd.resources.color.cache'
+local cache_res  = require 'nd.resources.color.cache'
 
 local color_fn   = require 'nd.nvim.color'
+
+local scheme_fn  = cache_res.get_nvim
 
 local indent     = require 'indent_blankline'
 local colorizer  = require 'colorizer'

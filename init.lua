@@ -42,7 +42,7 @@ run = function()
     require 'nd.lib.test' {}
 end
 
-init(vim.api.nvim_runtime_paths()[1], false)
+init(vim.api.nvim_list_runtime_paths()[1], false)
 
 return {
     init = init,

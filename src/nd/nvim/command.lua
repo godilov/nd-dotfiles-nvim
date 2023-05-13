@@ -1,13 +1,16 @@
-local fn_lib = require 'nd.lib.core.fn'
+local fn_lib   = require 'nd.lib.core.fn'
 
-local keys   = fn_lib.keys
-local ivals  = fn_lib.ivals
-local filter = fn_lib.filter
-local each   = fn_lib.each
+local key_fn   = require 'nd.nvim.key'
+local color_fn = require 'nd.nvim.color'
 
-local format = string.format
-local match  = string.match
-local gsub   = string.gsub
+local keys     = fn_lib.keys
+local ivals    = fn_lib.ivals
+local filter   = fn_lib.filter
+local each     = fn_lib.each
+
+local format   = string.format
+local match    = string.match
+local gsub     = string.gsub
 
 
 local unload          = nil
@@ -25,35 +28,42 @@ unload = function(mods)
     end, ivals(mods))
 end
 
-nd_apply_config = function()
-    vim.cmd 'wa'
+nd_apply_config = function(key_config, color_config)
+    return function()
+        vim.cmd 'wa'
 
-    unload {
-        'nd.resources.core.key.nvim',
-        'nd.resources.core.color.nvim',
-    }
+        unload {
+            -- TODO: check if needed to unload cache
 
-    local key_fn   = require 'nd.nvim.key'
-    local color_fn = require 'nd.nvim.color'
+            'nd.resources.key.cache',
+            'nd.resources.color.cache',
+            'nd.resources.core.key.nvim',
+            'nd.resources.core.color.nvim',
+        }
 
-    key_fn {}
-    color_fn {
-        cache = {
-            forced = true,
-        },
-    }
+        local key_res      = require 'nd.resources.key.cache'
+        local color_res    = require 'nd.resources.color.cache'
 
-    print 'Config has been applied!'
+        local key_scheme   = key_res.get_nvim(key_config, true)
+        local color_scheme = color_res.get_nvim(color_config, true)
+
+        key_fn(key_scheme.editor_fn())
+        color_fn(color_scheme.highlight)
+
+        print 'Config has been applied!'
+    end
 end
 
 nd_apply_file = function()
-    vim.cmd 'wa'
-    vim.cmd 'source %'
+    return function()
+        vim.cmd 'wa'
+        vim.cmd 'source %'
 
-    print 'File has been applied!'
+        print 'File has been applied!'
+    end
 end
 
-return function()
-    vim.api.nvim_create_user_command('NdApplyConfig', nd_apply_config, {})
-    vim.api.nvim_create_user_command('NdApplyFile', nd_apply_file, {})
+return function(key_config, color_config)
+    vim.api.nvim_create_user_command('NdApplyConfig', nd_apply_config(key_config, color_config))
+    vim.api.nvim_create_user_command('NdApplyFile', nd_apply_file())
 end

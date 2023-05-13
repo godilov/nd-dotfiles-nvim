@@ -10,6 +10,8 @@ local telescope = require 'telescope'
 return function(key_config)
     local scheme = scheme_fn(key_config)
 
+    key_fn(scheme.editor_fn())
+
     tree.setup {
         on_attach = function(bufnr)
             key_fn(scheme.tree_fn(bufnr))

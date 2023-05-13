@@ -21,11 +21,7 @@ return function(color_config)
         show_current_context = true,
     }
 
-    lualine.setup {
-        options = {
-            theme = nil,
-        },
-    }
+    lualine.setup {}
 
     bufferline.setup {
         options = {

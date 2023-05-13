@@ -35,7 +35,7 @@ return function(key_config, lsp_config)
     local scheme  = scheme_fn(key_config)
     local servers = lsp_fn(lsp_config)
 
-    key_fn(scheme.editor_fn())
+    key_fn(scheme.lsp_fn())
 
     vim.diagnostic.config {
         signs            = true,

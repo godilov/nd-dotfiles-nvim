@@ -32,7 +32,7 @@ init = function(root, is_debug)
     ND_NVIM_IS_DEBUG = ND_NVIM_IS_DEBUG or is_debug
 
     require 'ext.nd.lib.init'.init(root, is_debug, true)
-    require 'ext.nd.resources.init'.init(root, is_debug, true)
+    require 'ext.nd.res.init'.init(root, is_debug, true)
 
     is_init = true
 

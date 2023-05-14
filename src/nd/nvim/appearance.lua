@@ -1,4 +1,4 @@
-local cache_res  = require 'nd.resources.color.cache'
+local cache_res  = require 'nd.res.color.cache'
 
 local color_fn   = require 'nd.nvim.color'
 

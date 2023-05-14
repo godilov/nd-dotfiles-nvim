@@ -1,4 +1,4 @@
-local cache_res = require 'nd.resources.key.cache'
+local cache_res = require 'nd.res.key.cache'
 
 local key_fn    = require 'nd.nvim.key'
 

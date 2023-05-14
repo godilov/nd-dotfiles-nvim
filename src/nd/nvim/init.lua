@@ -3,7 +3,7 @@ local str_lib        = require 'nd.lib.core.str'
 local tab_lib        = require 'nd.lib.core.tab'
 local cache_lib      = require 'nd.lib.cache.fs'
 
-local plugin_fn      = require 'nd.resources.core.plugin'
+local plugin_fn      = require 'nd.res.core.plugin'
 
 local key_config     = require 'nd.nvim.config.key'
 local color_config   = require 'nd.nvim.config.color'

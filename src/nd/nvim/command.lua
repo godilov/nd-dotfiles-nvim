@@ -1,7 +1,7 @@
 local fn_lib    = require 'nd.lib.core.fn'
 
-local key_res   = require 'nd.resources.key.cache'
-local color_res = require 'nd.resources.color.cache'
+local key_res   = require 'nd.res.key.cache'
+local color_res = require 'nd.res.color.cache'
 
 local key_fn    = require 'nd.nvim.key'
 local color_fn  = require 'nd.nvim.color'
@@ -36,8 +36,8 @@ nd_apply_config = function(key_config, color_config)
         vim.cmd 'wa'
 
         unload {
-            'nd.resources.core.key.nvim',
-            'nd.resources.core.color.nvim',
+            'nd.res.core.key.nvim',
+            'nd.res.core.color.nvim',
         }
 
         local key_scheme   = key_res.get_nvim(key_config, true)

@@ -1,8 +1,8 @@
 local fn_lib        = require 'nd.lib.core.fn'
 
-local cache_res     = require 'nd.resources.key.cache'
-local treeistter_fn = require 'nd.resources.core.language.nvim.treesitter'
-local lsp_fn        = require 'nd.resources.core.language.nvim.lsp'
+local cache_res     = require 'nd.res.key.cache'
+local treeistter_fn = require 'nd.res.core.language.nvim.treesitter'
+local lsp_fn        = require 'nd.res.core.language.nvim.lsp'
 
 local key_fn        = require 'nd.nvim.key'
 

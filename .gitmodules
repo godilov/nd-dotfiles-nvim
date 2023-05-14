@@ -1,5 +1,5 @@
 [submodule "ext/nd/resources"]
-	path = ext/nd/resources
+	path = ext/nd/res
 	url = https://github.com/GermanOdilov/nd-dotfiles-resources.git
 [submodule "ext/nd/lib"]
 	path = ext/nd/lib

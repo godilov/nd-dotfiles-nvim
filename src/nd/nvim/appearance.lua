@@ -8,7 +8,6 @@ local indent     = require 'indent_blankline'
 local colorizer  = require 'colorizer'
 local lualine    = require 'lualine'
 local bufferline = require 'bufferline'
-local startup    = require 'startup'
 
 return function(color_config)
     local scheme = scheme_fn(color_config)
@@ -38,9 +37,5 @@ return function(color_config)
                 return '(' .. count .. ')'
             end,
         },
-    }
-
-    startup.setup {
-        theme = 'evil',
     }
 end

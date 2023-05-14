@@ -1,11 +1,18 @@
-local cache_res = require 'nd.res.key.cache'
+local str_lib    = require 'nd.lib.core.str'
 
-local key_fn    = require 'nd.nvim.key'
+local cache_res  = require 'nd.res.key.cache'
 
-local scheme_fn = cache_res.get_nvim
+local key_fn     = require 'nd.nvim.key'
 
-local tree      = require 'nvim-tree'
-local telescope = require 'telescope'
+local concat2s   = str_lib.concat2s
+
+local scheme_fn  = cache_res.get_nvim
+
+local tree       = require 'nvim-tree'
+local telescope  = require 'telescope'
+local startup    = require 'startup'
+local sessions   = require 'sessions'
+local workspaces = require 'workspaces'
 
 return function(key_config)
     local scheme = scheme_fn(key_config)
@@ -34,4 +41,25 @@ return function(key_config)
             mappings = scheme.telescope_fn(),
         },
     }
+
+    startup.setup {
+        theme = 'evil',
+    }
+
+    sessions.setup {
+        session_filepath = '.session',
+        -- session_filepath = concat2s(vim.fn.stdpath 'data', '/sessions'),
+        -- absolute = true,
+    }
+
+    workspaces.setup {
+        path = concat2s(vim.fn.stdpath 'data', '/workspaces'),
+        hooks = {
+            open = function()
+                sessions.load(nil, { silent = true })
+            end,
+        },
+    }
+
+    telescope.load_extension 'workspaces'
 end

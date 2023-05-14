@@ -1,16 +1,19 @@
-local fn_lib   = require 'nd.lib.core.fn'
+local fn_lib    = require 'nd.lib.core.fn'
 
-local key_fn   = require 'nd.nvim.key'
-local color_fn = require 'nd.nvim.color'
+local key_res   = require 'nd.resources.key.cache'
+local color_res = require 'nd.resources.color.cache'
 
-local keys     = fn_lib.keys
-local ivals    = fn_lib.ivals
-local filter   = fn_lib.filter
-local each     = fn_lib.each
+local key_fn    = require 'nd.nvim.key'
+local color_fn  = require 'nd.nvim.color'
 
-local format   = string.format
-local match    = string.match
-local gsub     = string.gsub
+local keys      = fn_lib.keys
+local ivals     = fn_lib.ivals
+local filter    = fn_lib.filter
+local each      = fn_lib.each
+
+local format    = string.format
+local match     = string.match
+local gsub      = string.gsub
 
 
 local unload          = nil
@@ -33,16 +36,9 @@ nd_apply_config = function(key_config, color_config)
         vim.cmd 'wa'
 
         unload {
-            -- TODO: check if needed to unload cache
-
-            'nd.resources.key.cache',
-            'nd.resources.color.cache',
             'nd.resources.core.key.nvim',
             'nd.resources.core.color.nvim',
         }
-
-        local key_res      = require 'nd.resources.key.cache'
-        local color_res    = require 'nd.resources.color.cache'
 
         local key_scheme   = key_res.get_nvim(key_config, true)
         local color_scheme = color_res.get_nvim(color_config, true)

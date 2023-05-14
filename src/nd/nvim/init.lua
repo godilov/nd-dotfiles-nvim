@@ -1,5 +1,3 @@
-local packer         = require 'packer'
-
 local fn_lib         = require 'nd.lib.core.fn'
 local str_lib        = require 'nd.lib.core.str'
 local tab_lib        = require 'nd.lib.core.tab'
@@ -24,6 +22,8 @@ local concat2s       = str_lib.concat2s
 local concat3s       = str_lib.concat3s
 
 local concat         = tab_lib.concat
+
+local packer         = require 'packer'
 
 local is_init        = false
 

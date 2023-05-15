@@ -1,7 +1,7 @@
 local fn_lib   = require 'nd.lib.core.fn'
 local str_lib  = require 'nd.lib.core.str'
 
-local kv       = fn_lib.kv
+local ivals    = fn_lib.ivals
 local map      = fn_lib.map
 local collect  = fn_lib.collect
 
@@ -14,26 +14,23 @@ local concat   = table.concat
 
 local as_str = nil
 
-as_str = function(key, val)
-    local link = val[5]
+as_str = function(val)
+    local link = val[6]
 
     if not link then
         return format('%s guifg=%s guibg=%s guisp=%s gui=%s',
-            key,
-            val[1] or 'NONE',
-            val[2] or 'NONE',
-            val[3] or 'NONE',
-            val[4] or 'NONE')
+            val[1],
+            val[2],
+            val[3],
+            val[4],
+            val[5])
     else
-        return format('link %s %s', key, link or 'NONE')
+        return format('link %s %s', val[1], link)
     end
 end
 
 return function(scheme)
-    vim.cmd(concat2s(':', concat(collect(map(function(elem)
-        local key = elem[1]
-        local val = elem[2]
-
-        return format('highlight %s', as_str(key, val))
-    end, kv(scheme))), ' | ')))
+    vim.cmd(concat2s(':', concat(collect(map(function(val)
+        return format('highlight %s', as_str(val))
+    end, ivals(scheme))), ' | ')))
 end

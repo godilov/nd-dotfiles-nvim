@@ -10,7 +10,6 @@ local scheme_fn  = cache_res.get_nvim
 
 local tree       = require 'nvim-tree'
 local telescope  = require 'telescope'
-local startup    = require 'startup'
 local sessions   = require 'sessions'
 local workspaces = require 'workspaces'
 
@@ -42,14 +41,8 @@ return function(key_config)
         },
     }
 
-    startup.setup {
-        theme = 'evil',
-    }
-
     sessions.setup {
         session_filepath = '.session',
-        -- session_filepath = concat2s(vim.fn.stdpath 'data', '/sessions'),
-        -- absolute = true,
     }
 
     workspaces.setup {

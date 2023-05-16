@@ -31,20 +31,22 @@ unload = function(mods)
     end, ivals(mods))
 end
 
-nd_apply_config = function(key_config, color_config)
+nd_apply_config = function(config)
     return function()
         vim.cmd 'wa'
 
         unload {
+            'nd.nvim.option',
             'nd.res.core.key.nvim',
             'nd.res.core.color.nvim',
         }
 
-        local key_scheme   = key_res.get_nvim(key_config, true)
-        local color_scheme = color_res.get_nvim(color_config, true)
+        local key_scheme   = key_res.get_nvim(config.key, true)
+        local color_scheme = color_res.get_nvim(config.color, true)
 
         key_fn(key_scheme.editor_fn())
         color_fn(color_scheme.highlight)
+        require 'nd.nvim.option' ()
 
         print 'Config has been applied!'
     end
@@ -59,7 +61,7 @@ nd_apply_file = function()
     end
 end
 
-return function(key_config, color_config)
-    vim.api.nvim_create_user_command('NdApplyConfig', nd_apply_config(key_config, color_config), {})
+return function(config)
+    vim.api.nvim_create_user_command('NdApplyConfig', nd_apply_config(config), {})
     vim.api.nvim_create_user_command('NdApplyFile', nd_apply_file(), {})
 end

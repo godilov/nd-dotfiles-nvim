@@ -32,6 +32,36 @@ return function(key_config)
                 },
             },
         },
+        renderer = {
+            icons = {
+                symlink_arrow = '  ',
+                glyphs = {
+                    default = '',
+                    symlink = '',
+                    bookmark = '',
+                    modified = '',
+                    folder = {
+                        arrow_closed = '',
+                        arrow_open = '',
+                        default = '',
+                        open = '',
+                        empty = '',
+                        empty_open = '',
+                        symlink = '',
+                        symlink_open = '',
+                    },
+                    git = {
+                        staged = '',
+                        unstaged = '',
+                        unmerged = '',
+                        renamed = '',
+                        untracked = '',
+                        deleted = '',
+                        ignored = '',
+                    },
+                },
+            },
+        },
     }
 
     telescope.setup {

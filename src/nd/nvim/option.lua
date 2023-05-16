@@ -5,6 +5,7 @@ return function()
     vim.opt.autowrite     = true
     vim.opt.autowriteall  = true
     vim.opt.termguicolors = true
+    vim.opt.showmode      = false
     vim.opt.signcolumn    = 'yes'
     vim.opt.mouse         = ''
 

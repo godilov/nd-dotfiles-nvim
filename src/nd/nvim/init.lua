@@ -42,15 +42,17 @@ return function()
             collect(map(concat_elem, ivals(plugins))),
         }
 
-        local key_cfg   = key_config['main']
-        local color_cfg = color_config['main']
-        local lsp_cfg   = lsp_config['main']
+        local config = {
+            key   = key_config['main'],
+            color = color_config['main'],
+            lsp   = lsp_config['main'],
+        }
 
         option_fn()
-        command_fn(key_cfg, color_cfg)
-        navigation_fn(key_cfg)
-        development_fn(key_cfg, lsp_cfg)
-        appearance_fn(color_cfg)
+        command_fn(config)
+        navigation_fn(config.key)
+        development_fn(config.key, config.lsp)
+        appearance_fn(config.color)
 
         is_init = true
     end

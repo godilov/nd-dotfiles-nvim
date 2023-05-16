@@ -76,31 +76,31 @@ return function(color_config)
             },
             shortcut = {
                 {
-                    desc = '󰇚 Update Packer',
+                    desc = ' Update Packer',
                     group = '@function',
                     action = 'PackerSync',
                     key = 'q',
                 },
                 {
-                    desc = '󰐅 Update Treesitter',
+                    desc = ' Update Treesitter',
                     group = '@function',
                     action = 'TSUpdate',
                     key = 'w',
                 },
                 {
-                    desc = '󱁤 Update Mason',
+                    desc = ' Update Mason',
                     group = '@function',
                     action = 'MasonUpdate',
                     key = 'e',
                 },
                 {
-                    desc = '󰈔 Files',
+                    desc = ' Files',
                     group = '@property',
                     action = 'Telescope find_files',
                     key = 'f',
                 },
                 {
-                    desc = '󰱼 Search',
+                    desc = ' Search',
                     group = '@property',
                     action = 'Telescope live_grep',
                     key = 's',

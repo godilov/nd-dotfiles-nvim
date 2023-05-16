@@ -1,12 +1,12 @@
 local fn_lib         = require 'nd.lib.core.fn'
 local str_lib        = require 'nd.lib.core.str'
-local tab_lib        = require 'nd.lib.core.tab'
 local cache_lib      = require 'nd.lib.cache.fs'
 
 local plugin_fn      = require 'nd.res.core.plugin'
 
 local key_config     = require 'nd.nvim.config.key'
 local color_config   = require 'nd.nvim.config.color'
+local lsp_config     = require 'nd.nvim.config.lsp'
 
 local option_fn      = require 'nd.nvim.option'
 local command_fn     = require 'nd.nvim.command'
@@ -21,55 +21,30 @@ local collect        = fn_lib.collect
 local concat2s       = str_lib.concat2s
 local concat3s       = str_lib.concat3s
 
-local concat         = tab_lib.concat
-
 local packer         = require 'packer'
 
 local is_init        = false
 
 local concat_elem    = nil
-local concat_lib     = nil
 
 
 concat_elem = function(elem)
     return concat3s(elem[1], '/', elem[2])
 end
 
-concat_lib = function(elem)
-    return concat3s(packer.config.package_root, '/packer/start/', elem[2])
-end
-
 return function()
     if not is_init then
         cache_lib.set_dir(concat2s(vim.fn.stdpath 'cache', '/nd.nvim/'))
 
-        local plugin_iter = ivals(plugin_fn())
+        local plugins = plugin_fn()
 
         packer.startup {
-            collect(map(concat_elem, plugin_iter)),
+            collect(map(concat_elem, ivals(plugins))),
         }
 
         local key_cfg   = key_config['main']
         local color_cfg = color_config['main']
-        local lsp_cfg   = {
-            lua = {
-                libs = concat {
-                    collect(map(concat_lib, plugin_iter)),
-                    {
-                        '/usr/share/nvim/runtime/lua',
-                        '/usr/share/nvim/runtime/lua/lsp',
-                        '/usr/share/awesome/lib',
-                    },
-                },
-                globals = {
-                    'vim',
-                    'awesome',
-                    'screen',
-                    'client',
-                    'root',
-                },
-            },
-        }
+        local lsp_cfg   = lsp_config['main']
 
         option_fn()
         command_fn(key_cfg, color_cfg)

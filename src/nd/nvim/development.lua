@@ -6,7 +6,7 @@ local lsp_fn        = require 'nd.res.core.language.nvim.lsp'
 
 local key_fn        = require 'nd.nvim.key'
 
-local kv            = fn_lib.kv
+local ivals         = fn_lib.ivals
 local mapi          = fn_lib.mapi
 local filter        = fn_lib.filter
 local collect       = fn_lib.collect
@@ -61,7 +61,7 @@ return function(key_config, lsp_config)
 
     mason.setup {}
     mason_lsp.setup {
-        ensure_installed = collect(mapi(1, filter(is_not_skip_fn, kv(servers)))),
+        ensure_installed = collect(mapi(1, filter(is_not_skip_fn, ivals(servers)))),
     }
 
     local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -77,7 +77,7 @@ return function(key_config, lsp_config)
                 key_fn(scheme.lsp_buf_fn(bufnr))
             end,
         }
-    end, kv(servers))
+    end, ivals(servers))
 
     treesitter.setup {
         ensure_installed = treeistter_fn(),

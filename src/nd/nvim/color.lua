@@ -31,6 +31,6 @@ end
 
 return function(scheme)
     vim.cmd(concat2s(':', concat(collect(map(function(val)
-        return format('highlight %s', as_str(val))
+        return format('highlight! %s', as_str(val))
     end, ivals(scheme))), ' | ')))
 end

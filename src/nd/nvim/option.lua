@@ -21,7 +21,6 @@ return function()
     vim.opt.autoindent  = true
     vim.opt.smartindent = true
 
-    vim.opt.hlsearch    = true
     vim.opt.incsearch   = true
     vim.opt.smartcase   = true
     vim.opt.gdefault    = true

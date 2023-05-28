@@ -18,8 +18,6 @@ return function(color_config)
     colorizer.setup { '*' }
 
     indent.setup {
-        char = '|',
-        char_blankline = '¦',
         use_treesitter = true,
         show_current_context = true,
         bufname_exclude = {

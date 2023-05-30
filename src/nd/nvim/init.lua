@@ -50,9 +50,9 @@ return function()
 
         option_fn()
         command_fn(config)
-        navigation_fn(config.key)
-        development_fn(config.key, config.lsp)
-        appearance_fn(config.color)
+        navigation_fn(config)
+        development_fn(config)
+        appearance_fn(config)
 
         is_init = true
     end

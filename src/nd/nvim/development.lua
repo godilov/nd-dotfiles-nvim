@@ -2,7 +2,8 @@ local fn_lib        = require 'nd.lib.core.fn'
 
 local cache_res     = require 'nd.res.key.cache'
 local treeistter_fn = require 'nd.res.core.language.nvim.treesitter'
-local lsp_fn        = require 'nd.res.core.language.nvim.lsp'
+
+local lsp_scheme_fn = require 'nd.res.core.language.nvim.lsp'
 
 local key_fn        = require 'nd.nvim.key'
 
@@ -12,11 +13,11 @@ local filter        = fn_lib.filter
 local collect       = fn_lib.collect
 local each          = fn_lib.each
 
-local scheme_fn     = cache_res.get_nvim
+local key_scheme_fn = cache_res.get_nvim
 
 local mason         = require 'mason'
 local mason_lsp     = require 'mason-lspconfig'
-local config        = require 'lspconfig'
+local lsp           = require 'lspconfig'
 
 local cmp           = require 'cmp'
 local cmp_lsp       = require 'cmp_nvim_lsp'
@@ -31,11 +32,11 @@ is_not_skip_fn = function(elem)
     return not elem[2].skip
 end
 
-return function(key_config, lsp_config)
-    local scheme  = scheme_fn(key_config)
-    local servers = lsp_fn(lsp_config)
+return function(config)
+    local key_scheme = key_scheme_fn(config.key)
+    local lsp_scheme = lsp_scheme_fn(config.lsp)
 
-    key_fn(scheme.lsp_fn())
+    key_fn(key_scheme.lsp_fn())
 
     vim.diagnostic.config {
         signs            = true,
@@ -51,7 +52,7 @@ return function(key_config, lsp_config)
                 snip.lsp_expand(args.body)
             end,
         },
-        mapping = scheme.cmp_fn(),
+        mapping = key_scheme.cmp_fn(),
         sources = {
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
@@ -61,7 +62,7 @@ return function(key_config, lsp_config)
 
     mason.setup {}
     mason_lsp.setup {
-        ensure_installed = collect(mapi(1, filter(is_not_skip_fn, ivals(servers)))),
+        ensure_installed = collect(mapi(1, filter(is_not_skip_fn, ivals(lsp_scheme)))),
     }
 
     local capabilities = cmp_lsp.default_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -70,14 +71,14 @@ return function(key_config, lsp_config)
         local key = elem[1]
         local val = elem[2]
 
-        config[key].setup {
+        lsp[key].setup {
             settings     = val,
             capabilities = capabilities,
             on_attach    = function(_, bufnr)
-                key_fn(scheme.lsp_buf_fn(bufnr))
+                key_fn(key_scheme.lsp_buf_fn(bufnr))
             end,
         }
-    end, ivals(servers))
+    end, ivals(lsp_scheme))
 
     treesitter.setup {
         ensure_installed = treeistter_fn(),
@@ -89,7 +90,7 @@ return function(key_config, lsp_config)
             disable = {},
             updatetime = 25,
             persist_queries = false,
-            keybindings = scheme.treesitter_fn(),
+            keybindings = key_scheme.treesitter_fn(),
         },
     }
 end

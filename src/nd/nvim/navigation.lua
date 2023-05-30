@@ -1,26 +1,29 @@
-local str_lib    = require 'nd.lib.core.str'
+local str_lib         = require 'nd.lib.core.str'
 
-local cache_res  = require 'nd.res.key.cache'
+local key_cache_res   = require 'nd.res.key.cache'
+local color_cache_res = require 'nd.res.color.cache'
 
-local key_fn     = require 'nd.nvim.key'
+local key_fn          = require 'nd.nvim.key'
 
-local concat2s   = str_lib.concat2s
+local concat2s        = str_lib.concat2s
 
-local scheme_fn  = cache_res.get_nvim
+local key_scheme_fn   = key_cache_res.get_nvim
+local color_scheme_fn = color_cache_res.get_nvim
 
-local tree       = require 'nvim-tree'
-local telescope  = require 'telescope'
-local sessions   = require 'sessions'
-local workspaces = require 'workspaces'
+local tree            = require 'nvim-tree'
+local telescope       = require 'telescope'
+local sessions        = require 'sessions'
+local workspaces      = require 'workspaces'
 
-return function(key_config)
-    local scheme = scheme_fn(key_config)
+return function(config)
+    local key_scheme   = key_scheme_fn(config.key)
+    local color_scheme = color_scheme_fn(config.color)
 
-    key_fn(scheme.editor_fn())
+    key_fn(key_scheme.editor_fn())
 
     tree.setup {
         on_attach = function(bufnr)
-            key_fn(scheme.tree_fn(bufnr))
+            key_fn(key_scheme.tree_fn(bufnr))
         end,
         view = {
             float = {
@@ -33,41 +36,14 @@ return function(key_config)
             },
         },
         renderer = {
-            icons = {
-                symlink_arrow = '  ',
-                glyphs = {
-                    default = '',
-                    symlink = '',
-                    bookmark = '',
-                    modified = '',
-                    folder = {
-                        arrow_closed = '',
-                        arrow_open = '',
-                        default = '',
-                        open = '',
-                        empty = '',
-                        empty_open = '',
-                        symlink = '',
-                        symlink_open = '',
-                    },
-                    git = {
-                        staged = '',
-                        unstaged = '',
-                        unmerged = '',
-                        renamed = '',
-                        untracked = '',
-                        deleted = '',
-                        ignored = '',
-                    },
-                },
-            },
+            icons = color_scheme.etc.tree.icons,
         },
     }
 
     telescope.setup {
         defaults = {
-            borderchars = { '─', '│', '─', '│', '┌', '┐', '┘', '└' },
-            mappings = scheme.telescope_fn(),
+            borderchars = color_scheme.etc.telescope.borderchars,
+            mappings = key_scheme.telescope_fn(),
         },
     }
 

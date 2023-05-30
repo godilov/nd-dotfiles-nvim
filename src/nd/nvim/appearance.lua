@@ -1,19 +1,19 @@
-local cache_res  = require 'nd.res.color.cache'
+local color_cache_res = require 'nd.res.color.cache'
 
-local color_fn   = require 'nd.nvim.color'
+local color_fn        = require 'nd.nvim.color'
 
-local scheme_fn  = cache_res.get_nvim
+local color_scheme_fn = color_cache_res.get_nvim
 
-local indent     = require 'indent_blankline'
-local colorizer  = require 'colorizer'
-local lualine    = require 'lualine'
-local bufferline = require 'bufferline'
-local dashboard  = require 'dashboard'
+local indent          = require 'indent_blankline'
+local colorizer       = require 'colorizer'
+local lualine         = require 'lualine'
+local bufferline      = require 'bufferline'
+local dashboard       = require 'dashboard'
 
 return function(config)
-    local scheme = scheme_fn(config.color)
+    local color_scheme = color_scheme_fn(config.color)
 
-    color_fn(scheme.highlight)
+    color_fn(color_scheme.highlight)
 
     colorizer.setup { '*' }
 
@@ -27,7 +27,7 @@ return function(config)
 
     lualine.setup {
         options = {
-            theme = scheme.special.lualine,
+            theme = color_scheme.special.lualine,
         },
     }
 
@@ -52,6 +52,6 @@ return function(config)
         theme = 'hyper',
         disable_move = true,
         shortcut_type = 'letter',
-        config = scheme.etc.dashboard.config,
+        config = color_scheme.etc.dashboard.config,
     }
 end

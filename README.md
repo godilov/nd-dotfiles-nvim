@@ -16,7 +16,7 @@ Simply copy the whole config to `~/.config/nvim`.
 
 ## Philosophy
 
-The config contains only nvim-specific things and settings to keep it clean and small:
+The config contains only Nvim-specific things and settings to keep it clean and small:
 - Vim options
 - Extra commands
 - Plugins initialization

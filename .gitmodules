@@ -1,8 +1,8 @@
-[submodule "ext/nd/resources"]
-	path = ext/nd/res
-	url = https://github.com/GermanOdilov/nd-dotfiles-resources.git
-    branch = main
 [submodule "ext/nd/lib"]
 	path = ext/nd/lib
 	url = https://github.com/GermanOdilov/nd-dotfiles-lib.git
+    branch = main
+[submodule "ext/nd/res"]
+	path = ext/nd/res
+	url = git@github.com:GermanOdilov/nd-dotfiles-res.git
     branch = main

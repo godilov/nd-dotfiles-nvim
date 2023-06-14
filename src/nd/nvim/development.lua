@@ -15,13 +15,15 @@ local each          = fn_lib.each
 
 local key_scheme_fn = cache_res.get_nvim
 
+local cmp           = require 'cmp'
+local cmp_lsp       = require 'cmp_nvim_lsp'
+local snip          = require 'luasnip'
+
 local mason         = require 'mason'
 local mason_lsp     = require 'mason-lspconfig'
 local lsp           = require 'lspconfig'
 
-local cmp           = require 'cmp'
-local cmp_lsp       = require 'cmp_nvim_lsp'
-local snip          = require 'luasnip'
+local inlayhints    = require 'lsp-inlayhints'
 
 local treesitter    = require 'nvim-treesitter.configs'
 
@@ -43,7 +45,7 @@ return function(config)
         underline        = true,
         severity_sort    = true,
         update_in_insert = true,
-        virtual_text     = false,
+        virtual_text     = true,
     }
 
     cmp.setup {
@@ -60,6 +62,8 @@ return function(config)
         },
     }
 
+    inlayhints.setup()
+
     mason.setup {}
     mason_lsp.setup {
         ensure_installed = collect(mapi(1, filter(is_not_skip_fn, ivals(lsp_scheme)))),
@@ -74,7 +78,13 @@ return function(config)
         lsp[key].setup {
             settings     = val,
             capabilities = capabilities,
-            on_attach    = function(_, bufnr)
+            on_attach    = function(client, bufnr)
+                client.server_capabilities.semanticTokensProvider = nil
+
+                vim.cmd [[autocmd BufWritePre <buffer> lua vim.lsp.buf.format()]]
+
+                inlayhints.on_attach(client, bufnr)
+
                 key_fn(key_scheme.lsp_buf_fn(bufnr))
             end,
         }

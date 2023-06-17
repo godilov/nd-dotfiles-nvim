@@ -62,7 +62,11 @@ return function(config)
         },
     }
 
-    inlayhints.setup()
+    inlayhints.setup {
+        inlay_hints = {
+            highlight = '@type',
+        },
+    }
 
     mason.setup {}
     mason_lsp.setup {

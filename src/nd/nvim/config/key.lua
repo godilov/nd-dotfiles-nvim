@@ -3,6 +3,7 @@ local snip      = require 'luasnip'
 local tree      = require 'nvim-tree.api'
 local telescope = require 'telescope'
 local actions   = require 'telescope.actions'
+local inlay     = require 'lsp-inlayhints'
 
 return {
     ['main'] = {
@@ -22,6 +23,7 @@ return {
             tree      = tree,
             telescope = telescope,
             actions   = actions,
+            inlay     = inlay,
         },
     },
 }

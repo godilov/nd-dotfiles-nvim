@@ -45,7 +45,7 @@ return function(config)
         underline        = true,
         severity_sort    = true,
         update_in_insert = true,
-        virtual_text     = true,
+        virtual_text     = false,
     }
 
     cmp.setup {

@@ -4,5 +4,5 @@
     branch = main
 [submodule "ext/nd/res"]
 	path = ext/nd/res
-	url = git@github.com:GermanOdilov/nd-dotfiles-res.git
+	url = https://github.com/GermanOdilov/nd-dotfiles-res.git
     branch = main

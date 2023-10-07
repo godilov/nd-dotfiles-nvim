@@ -27,6 +27,8 @@ local inlayhints    = require 'lsp-inlayhints'
 
 local treesitter    = require 'nvim-treesitter.configs'
 
+local crates        = require 'crates'
+
 
 local is_not_skip_fn = nil
 
@@ -59,6 +61,7 @@ return function(config)
             { name = 'nvim_lsp' },
             { name = 'luasnip' },
             { name = 'path' },
+            { name = 'crates' },
         },
     }
 
@@ -107,4 +110,6 @@ return function(config)
             keybindings = key_scheme.treesitter_fn(),
         },
     }
+
+    crates.setup()
 end

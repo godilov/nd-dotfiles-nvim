@@ -4,7 +4,6 @@ local color_fn        = require 'nd.nvim.color'
 
 local color_scheme_fn = color_cache_res.get_nvim
 
-local indent          = require 'indent_blankline'
 local colorizer       = require 'colorizer'
 local lualine         = require 'lualine'
 local bufferline      = require 'bufferline'
@@ -16,14 +15,6 @@ return function(config)
     color_fn(color_scheme.highlight)
 
     colorizer.setup { '*' }
-
-    indent.setup {
-        use_treesitter = true,
-        show_current_context = true,
-        bufname_exclude = {
-            '[No Name]',
-        },
-    }
 
     lualine.setup {
         options = {

@@ -26,14 +26,7 @@ return function(config)
             key_fn(key_scheme.tree_fn(bufnr))
         end,
         view = {
-            float = {
-                enable = true,
-                open_win_config = {
-                    border = 'single',
-                    width  = 64,
-                    height = 256,
-                },
-            },
+            width = 48,
         },
         renderer = {
             icons = color_scheme.etc.tree.icons,
